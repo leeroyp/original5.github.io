@@ -11,6 +11,13 @@ body {
   position: relative;
   margin: 20px 10px 20px 35px;
 }
+.custom-row {
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  display: -webkit-box;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 .back-text {
   position: absolute;
   font-size: 50px;
@@ -34,11 +41,19 @@ body {
   margin: 0 auto;
   left: 0;
   right: 0;
-  top: 89%;
+  top: 91.735%;
 }
 
 .default-btn {
-  padding: 15px 0;
+  /* 25% = padding: 0px 48.5px
+  33% = padding: 2px 54.98px
+  50% = padding: 14px 61.78px
+  67% = padding: 15px 63.5px
+  75% 80% = padding: 15px 63.68px
+  90% 100% = padding: 15px 63.89px
+  110% 125% 150% = padding: 15px 64.01px
+  >= 175% = padding: 15px 64px */
+  padding: 15px 64px;
   border: 1px solid #cdcdcd;
   overflow: hidden;
   position: relative;
@@ -46,7 +61,6 @@ body {
   cursor: pointer;
 }
 .icon-btn {
-  padding: 16px 63.85px;
   color: rgb(255, 255, 255, 0.8);
 }
 .icon-btn:hover,
