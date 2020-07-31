@@ -6,11 +6,14 @@ import "../../css/mainwindow.css";
 import "../../css/card.css";
 
 import getEvents from "../../../API/getEvents";
+// import { userId } from "../creat_event/CreateEvent";
 
 const ViewAll = () => {
   const [selectedSport, setSelectedSport] = useState(0);
   const [allEvents, setAllEvents] = useState([""]);
   const [events, setEvents] = useState([""]);
+  // const [join, setJoin] = useState();
+  // console.log('this is user ID',userId);
 
   const loadAllEvents = () => {
     let fetchedEvents = getEvents();
@@ -131,7 +134,7 @@ const ViewAll = () => {
                     {event.notes}
                   </div>
                   <div className="homeT_cell" data-title="Event Status">
-                    <button className="va-joinin-btn">Join In</button>
+                    <button id={index} className="va-joinin-btn">Join In</button>
                   </div>
                 </div>
               ))}
