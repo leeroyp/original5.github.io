@@ -3,10 +3,31 @@ import "../../css/join_in_events.css";
 import getEventsByType from "../../../API/getEventsByType";
 import addUserToEvent from "../../../API/addUserToEvent";
 
+import { render } from 'react-dom'
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import Alert from './Alert'
+
+
+// optional cofiguration
+const options = {
+  position: 'top center',
+  timeout: 1500,
+  width: '100px',
+  offset: '100px',
+  transition: 'scale'
+}
+
+const Root = () => (
+  <AlertProvider template={AlertTemplate} {...options}>
+    <Alert />
+  </AlertProvider>
+)
+
 class JoinInEvent extends React.Component {
   hrefTitle = (window.location.href).substring((window.location.href).indexOf("=") + 1, (window.location.href).length);
   eventCategory = this.hrefTitle.substring(this.hrefTitle.indexOf(":") + 1, this.hrefTitle.length);
-  
+
   constructor(props) {
     super(props);
     // this.sportType = this.props.match.params.sportType;
@@ -27,21 +48,33 @@ class JoinInEvent extends React.Component {
 
   joinInEvent(e, sportEvent) {
     // e.preventDefault();
-    console.log("joinInEvent, sportEvent: " + sportEvent);
+    console.log("joinInEvent, sportEvent: " + JSON.sportEvent);
 
     //userEmil should be obtaines from currently signed user. using fake for now
     // let userEmail = "user1@abc.com";
     let userEmail = localStorage.getItem('userEmail');
     addUserToEvent(sportEvent.eventName, userEmail)
       .then((data) => {
-        console.log(data);
+        // console.log('this is suppose to be the daata', this.state.sportEvents[i].eventName);
 
         //update signedUpUsers based on returned object
-        for(var i = 0 ; i < this.state.sportEvents.length ; i++) {
+        for(var i = 0 ; i < this.state.sportEvents[0].participants; i++) {
           if(this.state.sportEvents[i].eventName === data.data.eventName) {
+            console.log("here is the length", this.state.sportEvents.length)
             this.state.sportEvents[i].signedUpUsers = data.data.signedUpUsers;
+            console.log("signedup Users", this.state.sportEvents[i].signedUpUsers)
+            console.log("here is the state crap", this.state.sportEvents[0].participants)
             break;
           }
+        }
+        //NEED TO PULL THE NUMBER OF PEOPLE JOINED + DATA IS NOT RECOGNIZING THE ALLOWED USERS TO JOIN 
+        if(sportEvent.signedUpUsers.length > 10) {
+          alert('Sorry, there is no more room for you to join! Please select another event.');
+          console.log("YOU CAN NO LONGER JOIN EVENT")
+        }else{
+          alert('You have successfully joined!');
+          window.location='/events';
+          console.log('YOU HAVE SUCCESSFULLY JOINED')
         }
         // this.setState({sportEvents: data.data});
         // Force a render with a simulated state change
@@ -51,6 +84,16 @@ class JoinInEvent extends React.Component {
       }).catch((error) => {
           console.log("ERROR", error)
       });
+  }
+
+  state = {
+    visible: false
+  }
+
+  toggle(){
+    this.setState({
+      visible: ! this.state.visible 
+    })
   }
 
   render() {
@@ -98,9 +141,10 @@ class JoinInEvent extends React.Component {
                       <h6><span className="text-red">Event Location:</span>   {sportEvent.location}</h6>
                       <h6><span className="text-red">Event Start Time:</span>  {sportEvent.eventStart}</h6>
                       <h6><span className="text-red">Event End Time:</span>    {sportEvent.eventEnd}</h6>
-                      {/* <button className="joinin-btn" onClick={this.joinInEvent.bind(this, sportEvent)}>Join In</button> */}
-                      <button className="joinin-btn" onClick={(e) => this.joinInEvent(e, sportEvent)}>Join In</button>
-                      
+                      <button className="joinin-btn" onClick={(e) => {this.joinInEvent(e, sportEvent);}}>Join In</button>
+                      {/* <button className="joinin-btn" onClick={(e) => {this.joinInEvent(e, sportEvent); alert('You have successfully joined!'); window.location='/events'}}>Join In</button> */}
+                      {/* <button className="joinin-btn" onClick={(e) => {this.joinInEvent(e, sportEvent); }}>Join In</button> */}
+                      {/* <button className="joinin-btn" onClick={Root}>Join In</button> */}
                     </div>
                   </div>
                 </div>
