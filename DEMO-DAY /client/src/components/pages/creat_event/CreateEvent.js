@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Maps from "../supplementary/Maps";
 
-import "../../css/style_createEvent.css";
+import "../../css/createevent.css";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -111,133 +111,146 @@ const CreateEvent = props => {
           <strong>{eventType.toUpperCase()}:</strong> {eventCategory.replace(/%20/g, " ")}
           <small><i>"<strong>to.gather</strong> makes it possible!"</i></small>
         </h1>
+        <ol className="breadcrumb">
+          <li>
+            <a href="/home"><i className="fas fa-door-open"></i><span className="text-orange"> Main</span></a>
+          </li>
+          <li>
+            <a href="/events"><span className="text-orange"> Events</span></a>
+          </li>
+          <li>
+            <a href={`/events~category=${(headTitle).substring(0, (headTitle).indexOf(":"))}`}><span className="text-orange"> {eventType}</span></a>
+          </li>
+          <li>New Event</li>
+        </ol>
       </section>
 
-      <div className="form-container1">
-        <div id="toast"></div>
-        <form action="" className="form" onSubmit={handleSubmit}>
-          <div className="row createEvent-container">
-            <div className="form small-12 medium-3 large-3 column">
-              <div className="form-group">
-                <label htmlFor="event-title" id="form-event-title">
-                  Event title
-                </label>
-                <div id="i-have-a-tooltip" data-description="Name your event">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="txtEventTitle"
-                    aria-describedby="emailHelp"
-                    onChange={ (e) => setEventTitle(e.target.value) }
-                    value={eventTitle}
-                    placeholder="Event Title *"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="exampleFormControlSelect1">Participants</label>
-                <select
-                  className="form-control"
-                  id="form-participants"
-                  onChange={(e) => setEventParticipants(e.target.value)}
-                >
-                  {participants.map((pnumber) => (
-                    <option value={pnumber}>{pnumber}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="exampleFormControlSelect1">Event date: </label>
-                <DayPickerInput
-                  onDayChange={ (day) => setEventDate(day.toString().substring(4, day.toString().indexOf(":") - 3)) }
-                />
-              </div>
-
-              <div className="form-group createEvent-time-form">
-                <label htmlFor="exampleFormControlSelect1">Event start: </label>
-                <TimePicker
-                  style={{ width: 80 }}
-                  showSecond={false}
-                  minuteStep={5}
-                  disabledSeconds={disabledSeconds}
-                  onChange={ (value) => setEventStartTime(value && value.format("HH:mm")) }
-                  use12Hours
-                  inputReadOnly
-                />
-              </div>
-
-              <div className="form-group createEvent-time-form">
-                <label htmlFor="exampleFormControlSelect1">Event end: </label>
-                <TimePicker
-                  style={{ width: 80 }}
-                  showSecond={false}
-                  minuteStep={5}
-                  disabledSeconds={disabledSeconds}
-                  onChange={ (value) => setEventEndTime(value && value.format("HH:mm")) }
-                  use12Hours
-                  inputReadOnly
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">Additional notes</label>
-                <div id="i-have-a-tooltip" data-description="Your rules!">
-                  <textarea
-                    id="exampleFormControlTextarea1"
-                    className="form-control createEvent-textarea"
-                    rows="10"
-                    onChange={ (e) => setEventNotes(e.target.value) }
-                    value={eventNotes}
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-
-            <div className="small-12 medium-3 large-3  column createEvent-right-row" id="form-notes">
-              <div className="form-group">
-                <label htmlFor="event-title" id="form-event-title">Location</label>
-                <div id="i-have-a-tooltip" data-description="Address">
-                  <input
-                    value={eventSelectedAddress}
-                    onChange={ (e) => setEventSelectedAddress(e.target.value) }
-                    type="text"
-                    className="form-control"
-                    id="eventAddress"
-                    aria-describedby="eventLocation"
-                    disabled
-                  />
-                </div>
-              </div>
-
-              <div>
-                <p>{!eventDescription || eventDescription === "" ? "" : "Description: "}<i>{!eventDescription || eventDescription === "" ? "" : eventDescription}</i></p>
-              </div>
-
-              <div id="i-have-a-tooltip" data-description="Your rules!">
-                <section className="map-content">
-
-                  <Maps onDescriptionchange={description => setEventDescription (description)} onAddresschange={address => setEventSelectedAddress(address)} type={eventCategory} />
-
-                </section>
-              </div>
-            </div>
+      <div className="signup__container">
+        {/* <div className="container__child signup__thumbnail">
+          <div className="thumbnail__logo">
+            <img src="./assets/icons/logo_gray.png" alt="to.gather logo" className="logo__shape" width="25px" />
+            <h1 className="logo__text">to.gather</h1>
           </div>
-
-          <div className="createEvent-button">
-            <button
-              id="create-event-btn"
-              type="submit"
-              className="btn btn-md btn-success createEvent-m-ml"
-              // onClick=""
-            >
-              Create event
-            </button>
-
-            <a href={hrefCancel} className="btn-custom btn-danger btn-md createEvent-m-ml createEvent-d-inline">Cancel</a>
+          <div className="signup__overlay">
+            <Maps 
+              onDescriptionchange={description => setEventDescription (description)} 
+              onAddresschange={address => setEventSelectedAddress(address)} 
+              type={eventCategory} 
+            />
           </div>
-        </form>
+        </div> */}
+        <div className="container__child signup__form">
+          <form action="" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label for="eventtitle">Event Title</label>
+              <input
+                type="text"
+                className="form-control"
+                name="eventtitle"
+                id="txtEventTitle"
+                onChange={ (e) => setEventTitle(e.target.value) }
+                value={eventTitle}
+                placeholder="My event"
+              />
+            </div>
+            <div className="form-group dark-text">
+              <label for="eventdate">Date</label>
+              <DayPickerInput
+                onDayChange={ (day) => setEventDate(day.toString().substring(4, day.toString().indexOf(":") - 3)) }
+              />
+            </div>
+            <div className="form-group">
+              <label for="starttime">Start Time</label>
+              <TimePicker
+                style={{ width: 130 }}
+                placeholder="--:-- am/pm"
+                showSecond={false}
+                minuteStep={5}
+                disabledSeconds={disabledSeconds}
+                onChange={ (value) => setEventStartTime(value && value.format("HH:mm")) }
+                use12Hours
+                inputReadOnly
+              />
+            </div>
+            <div className="form-group">
+              <label for="endtime">Finish Time</label>
+              <TimePicker
+                style={{ width: 130 }}
+                placeholder="--:-- am/pm"
+                showSecond={false}
+                minuteStep={5}
+                disabledSeconds={disabledSeconds}
+                onChange={ (value) => setEventEndTime(value && value.format("HH:mm")) }
+                use12Hours
+                inputReadOnly
+              />
+            </div>
+            <div className="form-group">
+              <label for="participants">Participants</label>
+              <input 
+                className="form-control" 
+                type="number" 
+                step="any" 
+                name="participants" 
+                ng-model="user.participants" 
+                min="2" 
+                max="100" 
+                placeholder="2"  
+                id="form-participants"
+                onChange={(e) => setEventParticipants(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label for="additionalnotes">Notes</label>
+              <textarea
+                id="exampleFormControlTextarea1"
+                className="form-control createEvent-textarea"
+                placeholder="Write here additional notes.."
+                rows="5"
+                onChange={ (e) => setEventNotes(e.target.value) }
+                value={eventNotes}
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label for="location">Location</label>
+              <input
+                value={eventSelectedAddress}
+                onChange={ (e) => setEventSelectedAddress(e.target.value) }
+                type="text"
+                className="form-control"
+                name="location"
+                id="eventAddress"
+                aria-describedby="eventLocation"
+                placeholder="Choose your location on the map"
+                disabled
+              />
+              <p className="gray-text"><i>{!eventDescription || eventDescription === "" ? "" : eventDescription}</i></p>
+            </div>
+            <div className="m-t-lg">
+              <ul className="list-inline">
+                <li>
+                  <input className="btn btn--form btn--submit" type="submit" value="Create Event" />
+                </li>
+                <li>
+                  <a className="signup__link" href={hrefCancel}>Cancel</a>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+        <div className="container__child signup__thumbnail">
+          <div className="thumbnail__logo">
+            <img src="./assets/icons/logo_gray.png" alt="to.gather logo" className="logo__shape" width="25px" />
+            <h1 className="logo__text">to.gather</h1>
+          </div>
+          <div className="signup__overlay dark-text">
+            <Maps 
+              onDescriptionchange={description => setEventDescription (description)} 
+              onAddresschange={address => setEventSelectedAddress(address)} 
+              type={eventCategory} 
+            />
+          </div>
+        </div>
       </div>
 
       <Dialog
