@@ -10,9 +10,9 @@ export default function Maps(props) {
   const [viewport, setViewport] = useState({
     latitude:   43.6532,
     longitude: -79.3832,
-    width: 525,
-    height: 350,
-    zoom: 8
+    width: 995,
+    height: 720,
+    zoom: 11
   });
   const [selectedPark, setSelectedPark] = useState(null);
   const {onAddresschange, type, onDescriptionchange}=props
