@@ -131,7 +131,7 @@ const ViewAll = () => {
                     {event.notes}
                   </div>
                   <div className="homeT_cell" data-title="Event Status">
-                    <button className="va-joinin-btn">Join In</button>
+                    <button id={index} className="va-joinin-btn">Join In</button>
                   </div>
                 </div>
               ))}

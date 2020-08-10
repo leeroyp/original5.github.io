@@ -66,6 +66,7 @@ const CreateEvent = props => {
       handleClickOpen();
     }
   };
+  // console.log('This is userName',userName);
 
   const createEventSuccess = () => {
     if (!eventType            ||
@@ -262,7 +263,7 @@ const CreateEvent = props => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>              
+    </div>
   );
 };
 export default CreateEvent;
