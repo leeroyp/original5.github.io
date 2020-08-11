@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === "production") {
 // Routes
 require("./routes/htmlRoutes")(app)
 require("./routes/apiRoutes")(app)
+require("./routes/apiUserInfo")(app)
 
 const userRouter = require('./routes/User');
 app.use('/user', userRouter);

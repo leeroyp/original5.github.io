@@ -1,20 +1,32 @@
 import React, { Component } from "react";
 import togatherList from "../supplementary/togather.json";
+import getUserInfo from "../../../API/getUserInfo";
 // CSS
 import "../../css/togather.css";
 
 
 class Sidebar extends Component {
+  token  = JSON.parse(localStorage.getItem('token'));
+  userID = this.token.uid;
+
   state = {
     togatherList,
     name : "Anonymous"
   };
 
   componentWillMount() {
-    let name = localStorage.getItem('userEmail')
-    console.log(name)
-    if (!name){name="Anonymous"} 
-    this.setState({name : name})
+    // let name = localStorage.getItem('userEmail')
+    // console.log(name)
+    // if (!name){name="Anonymous"} 
+    // this.setState({name : name})
+
+    getUserInfo(this.userID)
+      .then((data) => {
+        console.log("USER info = " + JSON.stringify(data.data))
+        this.setState({name: data.data[0].firstname + " " + data.data[0].lastname});
+      }).catch((error) => {
+          console.log("ERROR", error)
+      });
   }
 
   render() {
