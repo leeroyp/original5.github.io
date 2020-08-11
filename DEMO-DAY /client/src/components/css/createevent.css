@@ -190,3 +190,32 @@ label {
 .gray-text {
   color: #808080;
 }
+
+@media (max-width: 960px) {
+  .signup__container {
+    position: inherit;
+    margin: 15px;
+    overflow: hidden;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    height: 75rem;
+    width: -webkit-fill-available;
+  }
+  
+  .signup__form {
+    padding: 1rem;
+    background: #fafafa;
+    height: 55%;
+    width: auto;
+  }
+  
+  .signup__thumbnail {
+    position: relative;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 45%;
+  }
+}
