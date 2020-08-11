@@ -17,7 +17,6 @@ export default function Maps(props) {
   const [selectedPark, setSelectedPark] = useState(null);
   const {onAddresschange, type, onDescriptionchange}=props
 
-  
 
   useEffect(() => {
     const listener = e => {
@@ -44,6 +43,7 @@ export default function Maps(props) {
       >
         {parkDate.features.filter((park) => { return park.type === type}).map(park => (
           <Marker
+          
             key={park.properties.PARK_ID}
             latitude={park.geometry.coordinates[1]}
             longitude={park.geometry.coordinates[0]}
@@ -58,7 +58,7 @@ export default function Maps(props) {
               }}
             >
               
-              <img className="mapImage" src="/assets/icons/tennis.svg" alt="Sports field" />
+              <img className="mapImage" src="/assets/icons/marker-editor.svg" alt="Sports field" />
             </button>
           </Marker>
         ))}
